@@ -10,7 +10,7 @@ Uma biblioteca .NET simples, leve e poderosa para renderizar textos magníficos 
 
 *   **Zero Dependências:** Leve e simples, feito em .NET puro.
 *   **Fácil de Usar:** Uma única chamada de método estático (`ConsoleRenderer.Draw("...")`) para criar a mágica.
-*   **Estilo Único:** Usa uma fonte de matriz 7x5 personalizada, criada com um design cuidadoso para garantir legibilidade e estilo.
+*   **Estilo Único:** Usa uma fonte de matriz 5x5 personalizada, criada com um design cuidadoso para garantir legibilidade e estilo.
 
 ## 🎨 Como Usar
 
@@ -30,7 +30,7 @@ ConsoleRenderer.Draw("Ola Mundo!");
 
 ## 📖 O Alfabeto do `ConsoleRenderer`
 
-Cada caractere tem uma "assinatura" única, representada por um array de 7 inteiros. Cada inteiro codifica uma linha de 5 pixels.
+Cada caractere tem uma "assinatura" única, representada por um array de 5 inteiros. Cada inteiro codifica uma linha de 5 pixels.
 
 <details>
 <summary>Clique para ver o mapa de caracteres completo!</summary>
