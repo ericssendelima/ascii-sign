@@ -1,7 +1,20 @@
 ﻿namespace ConsoleRenderer;
 
+/// <summary>
+/// Static class to render text in ASCII art style in the console.
+/// </summary>
+/// <remarks>
+/// Each character is represented in a 5x5 grid using binary signatures.
+/// Supported characters include uppercase letters A-Z, digits 0-9, and some special characters.
+/// </remarks>
 public static class AsciiFont
 {
+  /// <summary>
+  /// Dictionary mapping characters to their 5-line binary signatures.
+  /// Each integer in the array represents a line in the 5x5 grid, where
+  /// the bits represent the pixel states (1 for filled, 0 for empty).
+  /// The grid is 5 pixels wide and 5 pixels tall.
+  /// </summary>
   private static readonly Dictionary<char, int[]> _letterSignatures = new()
   {
     { 'A', new[] { 14, 17, 31, 17, 17 } },
@@ -50,36 +63,56 @@ public static class AsciiFont
     { '9', new[] { 31, 17, 31, 1, 31 } }
   };
 
+  /// <summary>
+  /// Renders the given text in ASCII art style in the console.
+  /// </summary>
+  /// <param name="text">The text to render.</param>
+  /// <exception cref="ArgumentException">Thrown when the text is null, empty, or exceeds 12 characters.</exception>
+  /// <remarks>
+  /// Each character is represented in a 5x5 grid using binary signatures.
+  /// The rendered text is framed with a border for better visibility.
+  /// </remarks>
+  /// <example>
+  /// AsciiFont.DrawString("HELLO");
+  /// </example>
   public static void DrawString(string text)
   {
-    char[] letras = GetCharactersArray(text);
+    // Get the array of characters from the input text
+    char[] letters = GetCharactersArray(text);
 
-    Dictionary<char, int[]> textSignatures = GetTextSignatures(letras);
+    // Get the signatures for each character in the text
+    Dictionary<char, int[]> textSignatures = GetTextSignatures(letters);
 
-    int[,] textMatrixSignatures = GetTextMatrixSignatures(letras, textSignatures);
+    // Create a matrix to hold the signatures for rendering
+    int[,] textMatrixSignatures = GetTextMatrixSignatures(letters, textSignatures);
 
+    // Render the text in the console
     Console.WriteLine();
     Console.Write("██");
-    Console.WriteLine(new string('█', letras.Length * 10 + (letras.Length - 1) * 2 + 6));
-    Console.WriteLine("██" + new string(' ', letras.Length * 10 + (letras.Length - 1) * 2 + 4) + "██");
-    for (int linha = 0; linha < 5; linha++)
+    Console.WriteLine(new string('█', letters.Length * 10 + (letters.Length - 1) * 2 + 6));
+    Console.WriteLine("██" + new string(' ', letters.Length * 10 + (letters.Length - 1) * 2 + 4) + "██");
+    // Render each of the 5 lines
+    for (int line = 0; line < 5; line++)
     {
       Console.Write("██  ");
-      for (int elementoDecimal = 0; elementoDecimal < letras.Length; elementoDecimal++)
+      // Render each character in the line
+      for (int decimalElement = 0; decimalElement < letters.Length; decimalElement++)
       {
-        int dec = textMatrixSignatures[linha, elementoDecimal];
+        // Get the decimal value for the current character line and convert it to binary string (padded to 5 bits) 
+        int dec = textMatrixSignatures[line, decimalElement];
         string binary = Convert.ToString(dec, 2).PadLeft(5, '0');
 
+        // Render each bit in the binary string
         foreach (char bit in binary)
         {
-          // Regra de visualização!
+          // Render a filled pixel for '1' and an empty pixel for '0'
           if (bit == '1')
           {
-            Console.Write("██"); // Um "pixel" preenchido
+            Console.Write("██"); 
           }
           else
           {
-            Console.Write("  "); // Um "pixel" vazio
+            Console.Write("  "); 
           }
         }
         Console.Write("  ");
@@ -87,54 +120,71 @@ public static class AsciiFont
       Console.Write("██");
       Console.WriteLine();
     }
-    Console.WriteLine("██" + new string(' ', letras.Length * 10 + (letras.Length - 1) * 2 + 4) + "██");
+    Console.WriteLine("██" + new string(' ', letters.Length * 10 + (letters.Length - 1) * 2 + 4) + "██");
     Console.Write("██");
-    Console.WriteLine(new string('█', letras.Length * 10 + (letras.Length - 1) * 2 + 6));
+    Console.WriteLine(new string('█', letters.Length * 10 + (letters.Length - 1) * 2 + 6));
   }
 
+  /// <summary>
+  /// Converts the input text into an array of uppercase characters.
+  /// Validates that the text is neither null nor empty and does not exceed 12 characters
+  /// </summary>
+  /// <param name="text">The input text to convert.</param>
+  /// <returns>An array of uppercase characters.</returns>
+  /// <exception cref="ArgumentException">Thrown when the text is null, empty, or exceeds 12 characters.</exception>
   private static char[] GetCharactersArray(string text)
   {
     if (string.IsNullOrEmpty(text)) throw new ArgumentException("Text cannot be null or empty.", nameof(text));
     if (text.Length > 12) throw new ArgumentException("Text length cannot be greater than 12 characters.", nameof(text));
 
-    char[] letras = new char[text.Length];
+    char[] letters = new char[text.Length];
 
+    // Convert each character to uppercase and store in the array
     for (int i = 0; i < text.Length; i++)
     {
-      string letra = text[i].ToString().ToUpper();
-      letras[i] = char.Parse(letra);
+      letters[i] = char.ToUpper(text[i]);
     }
-
-    return letras;
+    return letters;
   }
 
-  private static Dictionary<char, int[]> GetTextSignatures(char[] letras)
+  /// <summary>
+  /// Retrieves the binary signatures for each unique character in the input array.
+  /// </summary>
+  /// <param name="letters">The array of characters to retrieve signatures for.</param>
+  /// <returns>A dictionary mapping each character to its binary signature.</returns>
+  private static Dictionary<char, int[]> GetTextSignatures(char[] letters)
   {
     var textSignatures = new Dictionary<char, int[]>();
 
-    for (int i = 0; i < letras.Length; i++)
+    // Populate the dictionary with signatures for each unique character
+    for (int i = 0; i < letters.Length; i++)
     {
-      if (!textSignatures.ContainsKey(letras[i]))
+      if (!textSignatures.ContainsKey(letters[i]))
       {
-        textSignatures.Add(letras[i], _letterSignatures.First(s => s.Key == letras[i]).Value);
+        textSignatures.Add(letters[i], _letterSignatures.First(s => s.Key == letters[i]).Value);
       }
     }
-
     return textSignatures;
   }
 
-  private static int[,] GetTextMatrixSignatures(char[] letras, Dictionary<char, int[]> textSignatures)
+  /// <summary>
+  /// Constructs a matrix of binary signatures for rendering the text.
+  /// </summary>
+  /// <param name="letters">The array of characters to construct the matrix for.</param>
+  /// <param name="textSignatures">The dictionary containing the binary signatures for each character.</param>
+  /// <returns>A 2D array representing the binary signatures for each character in the text.</returns>
+  private static int[,] GetTextMatrixSignatures(char[] letters, Dictionary<char, int[]> textSignatures)
   {
-    int[,] textMatrixSignatures = new int[5, letras.Length];
+    int[,] textMatrixSignatures = new int[5, letters.Length];
 
-    for (int linha = 0; linha < 5; linha++)
+    // Fill the matrix with the signatures for each character
+    for (int line = 0; line < 5; line++)
     {
-      for (int elementoDecimal = 0; elementoDecimal < letras.Length; elementoDecimal++)
+      for (int decimalElement = 0; decimalElement < letters.Length; decimalElement++)
       {
-        textMatrixSignatures[linha, elementoDecimal] = textSignatures[letras[elementoDecimal]][linha];
+        textMatrixSignatures[line, decimalElement] = textSignatures[letters[decimalElement]][line];
       }
     }
-
     return textMatrixSignatures;
   }
 
