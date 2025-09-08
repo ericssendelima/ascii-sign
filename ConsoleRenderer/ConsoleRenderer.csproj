@@ -3,5 +3,21 @@
     <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
+
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild> 
+    
+    <PackageId>ConsoleRenderer</PackageId> 
+    
+    <Version>1.0.0</Version> 
+    
+    <Authors>ericssendelima</Authors> 
+    
+    <Description>A simple and fun .NET library for rendering text in ASCII art format in the console.</Description>
+    
+    <PackageProjectUrl>https://github.com/ericssendelima/console-renderer</PackageProjectUrl>
+    
+    <PackageTags>console;ascii;art;text;drawing;font</PackageTags>
+    
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 </Project>
