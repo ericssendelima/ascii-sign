@@ -9,19 +9,19 @@ Uma biblioteca .NET simples, leve e poderosa para renderizar textos magníficos 
 ## ✨ Recursos
 
 *   **Zero Dependências:** Leve e simples, feito em .NET puro.
-*   **Fácil de Usar:** Uma única chamada de método estático (`ConsoleRenderer.Draw("...")`) para criar a mágica.
+*   **Fácil de Usar:** Uma única chamada de método estático (`AsciiFont.DrawString("...")`) para criar a mágica.
 *   **Estilo Único:** Usa uma fonte de matriz 5x5 personalizada, criada com um design cuidadoso para garantir legibilidade e estilo.
 
 ## 🎨 Como Usar
 
-Usar o `ConsoleRenderer` é incrivelmente simples e divertido.
+Usar o `AsciiFont` é incrivelmente simples e divertido.
 
 1.  Adicione o projeto à sua solução.
-2.  Chame o método `Draw()` com a string que você deseja renderizar.
+2.  Chame o método `DrawString()` com a string que você deseja renderizar.
 
 ```csharp
 // Chame a mágica!
-ConsoleRenderer.Draw("Ola Mundo!");
+AsciiFont.DrawString("Ola Mundo!");
 ```
 
 **O resultado será algo espetacular como isto:**
