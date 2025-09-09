@@ -4,42 +4,42 @@
 
 A simple, lightweight, and powerful .NET library for rendering magnificent ASCII art text directly in your console. Turn ordinary words into pixel matrix masterpieces!
 
-![Rendering Example](https://raw.githubusercontent.com/ericssendelima/console-renderer/refs/heads/main/assets/exemplo001.webp)
+![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/exemplo001.webp)
 
 ## ✨ Features
 
 *   **Zero Dependencies:** Lightweight and simple, built with pure .NET.
-*   **Easy to Use:** A single static method call (`AsciiFont.DrawString("...")`) to create the magic.
+*   **Easy to Use:** A single static method call (`Sign.DrawString("...")`) to create the magic.
 *   **Unique Style:** Uses a custom 5x5 matrix font, carefully designed for readability and style.
 
 ## 🎨 How to Use
 
-Using `ConsoleRenderer` is incredibly simple and fun.
+Using `AsciiSign` is incredibly simple and fun.
 
 1.  Install the package from NuGet.
 
   ```shell
-  dotnet add package ConsoleRenderer
+  dotnet add package AsciiSign
   ```
 
 2.  Call the `DrawString()` method with the string you want to render.
 
 ```csharp
 // Import the namespace
-using ConsoleRenderer;
+using AsciiSign;
 
 Console.Write("Digite o nome: ");
 string text = Console.ReadLine();
 
 // Call the magic!
-AsciiFont.DrawString(text);
+Sign.DrawString(text);
 ```
 
 **The result will be something spectacular like this:**
 
-![Rendering Example](https://raw.githubusercontent.com/ericssendelima/console-renderer/refs/heads/main/assets/exemplo002.webp)
+![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/exemplo002.webp)
 
-## 📖 The `ConsoleRenderer` Alphabet
+## 📖 The `AsciiSign` Alphabet
 
 Each character has a unique "signature," represented by an array of 5 integers. Each integer encodes a row of 5 pixels.
 
@@ -103,7 +103,7 @@ Each character has a unique "signature," represented by an array of 5 integers. 
 
 This is a project born from curiosity and a love for creative programming. If you have ideas for optimizations or features, your contribution is more than welcome!
 
-1.  **Fork** this [repository](https://github.com/ericssendelima/console-renderer).
+1.  **Fork** this [repository](https://github.com/ericssendelima/ascii-sign).
 2.  Create a new **Branch** (`git checkout -b feature/your-amazing-feature`).
 3.  **Commit** your changes (`git commit -m 'Add new feature...'`).
 4.  **Push** to the Branch (`git push origin feature/your-amazing-feature`).

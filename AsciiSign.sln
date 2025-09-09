@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRenderer", "ConsoleRenderer\ConsoleRenderer.csproj", "{84524AA4-0FEC-4D48-977D-AC0E7B34FE14}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciiSign", "AsciiSign\AsciiSign.csproj", "{84524AA4-0FEC-4D48-977D-AC0E7B34FE14}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRenderer.TestApp", "ConsoleRenderer.TestApp\ConsoleRenderer.TestApp.csproj", "{44847A6C-4E2C-460E-8577-E808A41F2082}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciiSign.TestApp", "AsciiSign.TestApp\AsciiSign.TestApp.csproj", "{44847A6C-4E2C-460E-8577-E808A41F2082}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

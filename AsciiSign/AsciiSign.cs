@@ -1,4 +1,4 @@
-﻿namespace ConsoleRenderer;
+﻿namespace AsciiSign;
 
 /// <summary>
 /// Static class to render text in ASCII art style in the console.
@@ -7,7 +7,7 @@
 /// Each character is represented in a 5x5 grid using binary signatures.
 /// Supported characters include uppercase letters A-Z, digits 0-9, and some special characters.
 /// </remarks>
-public static class AsciiFont
+public static class Sign
 {
   /// <summary>
   /// Dictionary mapping characters to their 5-line binary signatures.
@@ -73,7 +73,7 @@ public static class AsciiFont
   /// The rendered text is framed with a border for better visibility.
   /// </remarks>
   /// <example>
-  /// AsciiFont.DrawString("HELLO");
+  /// Sign.DrawString("HELLO");
   /// </example>
   public static void DrawString(string text)
   {

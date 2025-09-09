@@ -6,16 +6,16 @@
 
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild> 
     
-    <PackageId>ConsoleRenderer</PackageId> 
+    <PackageId>AsciiSign</PackageId> 
     
     <Version>1.0.0</Version> 
     
     <Authors>ericssendelima</Authors> 
     
     <Description>A simple and fun .NET library for rendering text in ASCII art format in the console.</Description>
-    
-    <PackageProjectUrl>https://github.com/ericssendelima/console-renderer</PackageProjectUrl>
-    
+
+    <PackageProjectUrl>https://github.com/ericssendelima/ascii-sign</PackageProjectUrl>
+
     <PackageTags>console;ascii;art;text;drawing;font</PackageTags>
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
