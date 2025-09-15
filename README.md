@@ -4,12 +4,14 @@
 
 A simple, lightweight, and powerful .NET library for rendering magnificent ASCII art text directly in your console. Turn ordinary words into pixel matrix masterpieces!
 
-![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/exemplo001.webp)
+![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/normal-sign.png)
+
+![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/inverted-sign.png)
 
 ## ✨ Features
 
 *   **Zero Dependencies:** Lightweight and simple, built with pure .NET.
-*   **Easy to Use:** A single static method call (`Sign.DrawString("...")`) to create the magic.
+*   **Easy to Use:** A single static method call (`Sign.DrawString("...", isInvertedSign: false)`) to create the magic.
 *   **Unique Style:** Uses a custom 5x5 matrix font, carefully designed for readability and style.
 
 ## 🎨 How to Use
@@ -28,16 +30,24 @@ Using `AsciiSign` is incredibly simple and fun.
 // Import the namespace
 using AsciiSign;
 
-Console.Write("Digite o nome: ");
+Console.Write("Enter text to render in ASCII art:");
 string text = Console.ReadLine();
+Console.Write("Inverted sign (y/n)? ");
+char isInvertedSign = Console.ReadKey().KeyChar.ToString().ToLower()[0];
 
-// Call the magic!
-Sign.DrawString(text);
+while (isInvertedSign != 'y' && isInvertedSign != 'n')
+{
+  Console.Write("Invalid input. Please enter 'y' or 'n': ");
+  isInvertedSign = Console.ReadKey().KeyChar.ToString().ToLower()[0];
+}
+
+// Just one line of code to render the text as ASCII art
+Sign.DrawString(text, isInvertedSign: isInvertedSign == 'y');
 ```
 
 **The result will be something spectacular like this:**
 
-![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/exemplo002.webp)
+![Rendering Example](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/hello-world-example.png)
 
 ## 📖 The `AsciiSign` Alphabet
 
