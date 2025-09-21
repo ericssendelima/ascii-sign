@@ -24,7 +24,7 @@ Using `AsciiSign` is incredibly simple and fun.
   dotnet add package AsciiSign
   ```
 
-2.  Call the `DrawString()` method with the string you want to render.
+2.  Call the `DrawString(string, bool)` method with the string you want to render.
 
 ```csharp
 // Import the namespace
