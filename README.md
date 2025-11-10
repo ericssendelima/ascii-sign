@@ -1,10 +1,9 @@
-<div align="center">
-<h1 style="font-weight: bold; font-size: 2.5em;">✨ Ascii Sign ✨</h1>
+# ✨ Ascii Sign ✨
 
 [![Static Badge](https://img.shields.io/static/v1?label=AsciiSign&message=NuGet&color=blue&logo=nuget)](https://www.nuget.org/packages/AsciiSign/) ![Downloads](https://img.shields.io/nuget/dt/AsciiSign.svg?logo=nuget) [![NuGet Version](https://img.shields.io/nuget/v/AsciiSign.svg?logo=nuget)](https://www.nuget.org/packages/AsciiSign/) ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=flat&logo=.net&logoColor=white) ![C#](https://img.shields.io/badge/C%23-%23239120.svg?style=flat&logo=csharp&logoColor=white)
 [![License: LGPLv3](https://img.shields.io/badge/License-LGPLv3-red.svg?style=flat)](https://opensource.org/licenses/LGPL-3.0)
 
-</div>
+
 
 **Transform plain text into console art with this lightweight and powerful .NET library.**
 ---
@@ -20,12 +19,8 @@ And don't worry, the classic `ShadedFont` (hollow) is still here for those who l
 
 ## 📸 Examples
 
-<p align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
-  <img src="https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/turing-font-complete.png" width="24%" alt="Turing Font Example"/>
-  <img src="https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/shaded-font-complete.png" width="24%" alt="Shaded Font Example"/>
-  <img src="https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/basic-font-complete.png" width="24%" alt="Basic Font Example"/>
-  <img src="https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/inverted-basic-font-complete.png" width="24%" alt="Inverted Basic Font Example"/>
-</p>
+![Font Examples](https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/fonts.png)
+
 
 ### ❤️ Like this Project?
 
@@ -33,7 +28,7 @@ If `AsciiSign` added a little sparkle to your console and you felt happy using i
 
 **Friendly note:** The platform suggests some values, but you have complete freedom to enter any amount you wish in the field next to it, starting from $1. Any coffee, is a huge gesture and makes me incredibly grateful!
 
-<a href="https://www.buymeacoffee.com/ericssendelima" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;" ></a>
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ericssendelima)
 
 ## ✨ Features
 
@@ -84,9 +79,7 @@ Use the following code snippets in your C# project to see the magic happen:
 3.  **Admire the result:**
     Your console will never be the same!
 
-    <p align="left">
-      <img src="https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/assets/result-example.png"    width="24%" alt="Font Examples"/>
-    </p>
+    ![Font Examples](https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/result-example.png)
 
 ## 🤝 How to Contribute
 
@@ -104,6 +97,6 @@ This project is distributed under the LGPLv3 license. See the [LICENSE](./LICENS
 
 ---
 
- Created with ☕ and a whole lot of code by **Yalê Ericssen** ([@ericssendelima](https://github.com/ericssendelima)).
+Created with ☕ and a whole lot of code by **Yalê Ericssen** ([@ericssendelima](https://github.com/ericssendelima)).  
 
- <a href="https://www.buymeacoffee.com/ericssendelima" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;" ></a>
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ericssendelima)
