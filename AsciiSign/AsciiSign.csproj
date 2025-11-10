@@ -8,7 +8,11 @@
     
     <PackageId>AsciiSign</PackageId> 
     
-    <Version>2.0.1</Version> 
+    <Version>2.0.2</Version> 
+
+    <PackageReleaseNotes>
+      Hotfix: Corrects the rendering of the sponsorship button on NuGet.org by self-hosting the image within the project's repository. This ensures full compatibility with NuGet's content security policy.
+    </PackageReleaseNotes>
     
     <Authors>ericssendelima</Authors> 
     
