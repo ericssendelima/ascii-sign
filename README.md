@@ -49,7 +49,7 @@ Here is how `AsciiSign` looks across different platforms:
 using AsciiSign;
 
 // The new, unified way to draw directly to the terminal
-Sign.DrawOnConsole("Hello World", FontType.TRUE_TYPE);
+Sign.DrawOnConsole("Hello World", FontType.BASIC);
 Sign.DrawOnConsole("Welcome", FontType.TURING);
 
 // ⚠️ NOTE: Older methods like DrawBasicFont() or DrawTuringFont() are marked as [Obsolete] 
@@ -66,7 +66,7 @@ If you want to render the art outside the console, extract the matrix directly!
 using AsciiSign;
 
 // Generate the raw 2D array matrix for custom UI rendering
-string[,] myAsciiArt = Sign.GetAsciiArtMatrix("Hello UI", FontType.Shaded); 
+string[,] myAsciiArt = Sign.GetAsciiArtMatrix("Hello UI", FontType.SHADED); 
 
 // Now you can bind 'myAsciiArt' to a Blazor Grid, a WPF Canvas, or a PDF Document!
 ```
