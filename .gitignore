@@ -1,3 +1,5 @@
+.vs/
+
 #Pasta de ferramentas de teste e depuração
 AsciiSign.TestApp/*
 
@@ -5,6 +7,7 @@ AsciiSign.TestApp/*
 # .NET Core build folders
 bin/
 obj/
+wwwroot/
 
 # Common node modules locations
 /node_modules

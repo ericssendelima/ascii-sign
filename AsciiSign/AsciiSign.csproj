@@ -1,32 +1,32 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>disable</Nullable>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>disable</Nullable>
 
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild> 
-    
-    <PackageId>AsciiSign</PackageId> 
-    
-    <Version>2.0.2</Version> 
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<NoWarn>$(NoWarn);1591</NoWarn>
 
-    <PackageReleaseNotes>
-      Hotfix: Corrects the rendering of the sponsorship button on NuGet.org by self-hosting the image within the project's repository. This ensures full compatibility with NuGet's content security policy.
-    </PackageReleaseNotes>
-    
-    <Authors>ericssendelima</Authors> 
-    
-    <Description>A simple and fun .NET library for rendering text in ASCII art format in the console.</Description>
+		<PackageId>AsciiSign</PackageId>
 
-    <PackageProjectUrl>https://github.com/ericssendelima/ascii-sign</PackageProjectUrl>
+		<Version>2.1.0</Version>
 
-    <PackageTags>console;ascii;art;text;drawing;font</PackageTags>
-    
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<Authors>ericssendelima</Authors>
 
-     <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="../README.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
+		<Description>A simple and fun .NET library for rendering text in ASCII art format in the console.</Description>
+
+		<RepositoryUrl>https://github.com/ericssendelima/ascii-sign</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageProjectUrl>https://github.com/ericssendelima/ascii-sign</PackageProjectUrl>
+
+		<PackageTags>console;ascii;art;text;drawing;font</PackageTags>
+
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="../README.md" Pack="true" PackagePath="\" />
+	</ItemGroup>
 </Project>
