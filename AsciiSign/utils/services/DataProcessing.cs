@@ -1,42 +1,45 @@
-using AsciiSign.utils.characterDictionaries;
+using AsciiSign.interfaces;
 using AsciiSign.utils.enums;
+using AsciiSign.utils.extensions;
 
 namespace AsciiSign.utils.services
 {
   /// <summary>
   /// Provides methods for processing data related to ASCII art rendering.
   /// </summary>
-  /// <typeparam name="T">The type of the matrix elements (string, int).</typeparam>
-  public static class DataProcessing<T>
+  internal static class DataProcessing
   {
     /// <summary>
-    /// Generates a matrix of signatures for the given text based on the specified font type and character map.
+    /// Processes the input text and generates a matrix of ASCII art representations based on the specified font type and character map.
     /// </summary>
-    /// <param name="text">
-    /// The input text to be converted into a matrix of signatures.
-    /// </param>
-    /// <param name="fontType">
-    /// The font type to determine length constraints for the input text.
-    /// </param>
-    /// <param name="characterMap">
-    /// The character dictionary mapping characters to their signatures.
-    /// </param>
-    /// <param name="matrixHeight">
-    /// The height of the matrix for rendering the ASCII art.
-    /// </param>
-    /// <param name="letters">
-    /// The array of characters extracted from the input text.
-    /// </param>
-    /// <returns>
-    /// A matrix of signatures representing the input text.
-    /// </returns>
-    public static T[,] GetTextMatrixSignatures(string text, FontType fontType, CharacterDictionary<T> characterMap, MatrixHeight matrixHeight, char[] letters)
+    /// <param name="text">The input text to process.</param>
+    /// <param name="fontType">The font type to use for rendering.</param>
+    /// <param name="characterMap">The character dictionary containing the ASCII art representations.</param>
+    /// <param name="matrixHeight">The height of the ASCII art matrix.</param>
+    /// <param name="consoleDrawing">Indicates whether the ASCII art is intended for console drawing, which may affect character processing.</param>
+    /// <returns>The generated ASCII art matrix.</returns>
+    internal static string[,] FinalMatrixProcessment(string text, FontType fontType, ICharacterDictionary characterMap,
+   MatrixHeight matrixHeight, bool consoleDrawing)
     {
-      // Get the signatures for each character in the text
-      Dictionary<char, T[]> textSignatures = Text<T>.GetSignatures(letters, characterMap);
+      char[] letters = Characters.GetLettersOfInputText(text, fontType, consoleDrawing);
 
-      // Create a matrix to hold the signatures for rendering
-      T[,] textMatrixSignatures = new TextMatrix<T>((int)matrixHeight).GetSignatures(letters, textSignatures);
+      string[,] textMatrixSignatures = GetTextMatrixSignatures(characterMap, matrixHeight, letters);
+
+      return characterMap.ToAsciiArtMatrix(textMatrixSignatures, letters, matrixHeight);
+    }
+
+    /// <summary>
+    /// Generates a matrix of signatures for the given text based on the character map and matrix height.
+    /// </summary>
+    /// <param name="characterMap">The character dictionary containing the ASCII art representations.</param>
+    /// <param name="matrixHeight">The height of the ASCII art matrix.</param>
+    /// <param name="letters">The array of letters to render.</param>
+    /// <returns>The matrix of signatures for the given text.</returns>
+    private static string[,] GetTextMatrixSignatures(ICharacterDictionary characterMap, MatrixHeight matrixHeight, char[] letters)
+    {
+      Dictionary<char, string[]> textSignatures = Text.GetSignatures(letters, characterMap);
+
+      string[,] textMatrixSignatures = new TextMatrix((int)matrixHeight).GetSignaturesMatrix(letters, textSignatures);
 
       return textMatrixSignatures;
     }

@@ -1,113 +1,70 @@
+using AsciiSign.interfaces;
+
 namespace AsciiSign.utils.characterDictionaries
 {
   /// <summary>
-  /// A basic character dictionary mapping characters to their ASCII art signatures using 5x5 pixel representation.
+  /// The Basic class provides a mapping of characters to their corresponding ASCII art representations.
   /// </summary>
-  /// <remarks>
-  /// This class provides a mapping of characters to their 5x5 pixel ASCII art signatures.
-  /// It inherits from CharacterDictionary with int as the type for matrix signatures.
-  /// </remarks>
-  public class Basic : CharacterDictionary<int>
+  internal class Basic : ICharacterDictionary
   {
-    // Mapping of characters to their 5x5 pixel signatures represented as arrays of integers.
-    private readonly Dictionary<char, int[]> _signaturesMap = new()
+    /// <summary>
+    /// A dictionary that maps characters to their ASCII art representations. Each character is represented as an array of strings,
+    /// where each string corresponds to a line in the ASCII art representation of the character. The characters included in this dictionary
+    /// are uppercase letters (A-Z), space, period, exclamation mark, hash, plus, minus, asterisk, slash, and digits (0-9). 
+    /// </summary>
+    protected readonly Dictionary<char, string[]> _signaturesMap = new()
     {
-      { 'A', new[] { 14, 17, 31, 17, 17 } },
-      { 'B', new[] { 30, 17, 30, 17, 30 } },
-      { 'C', new[] { 14, 17, 16, 17, 14 } },
-      { 'D', new[] { 30, 17, 17, 17, 30 } },
-      { 'E', new[] { 31, 16, 30, 16, 31 } },
-      { 'F', new[] { 31, 16, 30, 16, 16 } },
-      { 'G', new[] { 14, 16, 23, 17, 14 } },
-      { 'H', new[] { 17, 17, 31, 17, 17 } },
-      { 'I', new[] { 14, 4, 4, 4, 14 } },
-      { 'J', new[] { 7, 2, 2, 18, 12 } },
-      { 'K', new[] { 18, 20, 24, 20, 18 } },
-      { 'L', new[] { 16, 16, 16, 16, 31 } },
-      { 'M', new[] { 17, 27, 21, 17, 17 } },
-      { 'N', new[] { 25, 25, 21, 19, 19 } },
-      { 'O', new[] { 14, 17, 17, 17, 14 } },
-      { 'P', new[] { 30, 17, 30, 16, 16 } },
-      { 'Q', new[] { 14, 17, 17, 18, 15 } },
-      { 'R', new[] { 30, 17, 30, 20, 18 } },
-      { 'S', new[] { 15, 16, 14, 1, 30 } },
-      { 'T', new[] { 31, 4, 4, 4, 4 } },
-      { 'U', new[] { 17, 17, 17, 17, 14 } },
-      { 'V', new[] { 17, 17, 17, 10, 4 } },
-      { 'W', new[] { 17, 21, 21, 21, 10 } },
-      { 'X', new[] { 17, 10, 4, 10, 17 } },
-      { 'Y', new[] { 17, 10, 4, 4, 4 } },
-      { 'Z', new[] { 31, 2, 4, 8, 31 } },
-      { ' ', new[] { 0, 0, 0, 0, 0 } },
-      { '.', new[] { 0, 0, 0, 0, 4 } },
-      { '!', new[] { 4, 4, 4, 0, 4 } },
-      { '#', new[] { 10, 31, 10, 31, 10 } },
-      { '+', new[] { 4, 4, 31, 4, 4 } },
-      { '-', new[] { 0, 0, 31, 0, 0 } },
-      { '*', new[] { 21, 14, 31, 14, 21 } },
-      { '/', new[] { 1, 2, 4, 8, 16 } },
-      { '0', new[] { 14, 17, 17, 17, 14 } },
-      { '1', new[] { 4, 12, 4, 4, 14 } },
-      { '2', new[] { 30, 1, 30, 16, 31 } },
-      { '3', new[] { 31, 1, 14, 1, 31 } },
-      { '4', new[] { 17, 17, 31, 1, 1 } },
-      { '5', new[] { 31, 16, 31, 1, 31 } },
-      { '6', new[] { 31, 16, 31, 17, 31 } },
-      { '7', new[] { 31, 1, 2, 4, 8 } },
-      { '8', new[] { 31, 17, 31, 17, 31 } },
-      { '9', new[] { 31, 17, 31, 1, 31 } }
+     { 'A', new[] { "111111", "000000", "011100", "100010", "111110", "100010", "100010", "000000", "111111"} },
+     { 'B', new[] { "111111", "000000", "111100", "100010", "111100", "100010", "111100", "000000", "111111"} },
+     { 'C', new[] { "111111", "000000", "011100", "100010", "100000", "100010", "011100", "000000", "111111" } },
+     { 'D', new[] { "111111", "000000", "111100", "100010", "100010", "100010", "111100", "000000", "111111" } },
+     { 'E', new[] { "111111", "000000", "111110", "100000", "111100", "100000", "111110", "000000", "111111" } },
+     { 'F', new[] { "111111", "000000", "111110", "100000", "111100", "100000", "100000", "000000", "111111" } },
+     { 'G', new[] { "111111", "000000", "011100", "100000", "101110", "100010", "011100", "000000", "111111" } },
+     { 'H', new[] { "111111", "000000", "100010", "100010", "111110", "100010", "100010", "000000", "111111" } },
+     { 'I', new[] { "111111", "000000", "011100", "001000", "001000", "001000", "011100", "000000", "111111" } },
+     { 'J', new[] { "111111", "000000", "001110", "000100", "000100", "100100", "011000", "000000", "111111" } },
+     { 'K', new[] { "111111", "000000", "100100", "101000", "110000", "101000", "100100", "000000", "111111" } },
+     { 'L', new[] { "111111", "000000", "100000", "100000", "100000", "100000", "111110", "000000", "111111" } },
+     { 'M', new[] { "111111", "000000", "100010", "110110", "101010", "100010", "100010", "000000", "111111" } },
+     { 'N', new[] { "111111", "000000", "110010", "110010", "101010", "100110", "100110", "000000", "111111" } },
+     { 'O', new[] { "111111", "000000", "011100", "100010", "100010", "100010", "011100", "000000", "111111" } },
+     { 'P', new[] { "111111", "000000", "111100", "100010", "111100", "100000", "100000", "000000", "111111" } },
+     { 'Q', new[] { "111111", "000000", "011100", "100010", "100010", "100100", "011110", "000000", "111111" } },
+     { 'R', new[] { "111111", "000000", "111100", "100010", "111100", "101000", "100100", "000000", "111111" } },
+     { 'S', new[] { "111111", "000000", "011110", "100000", "011100", "000010", "111100", "000000", "111111" } },
+     { 'T', new[] { "111111", "000000", "111110", "001000", "001000", "001000", "001000", "000000", "111111" } },
+     { 'U', new[] { "111111", "000000", "100010", "100010", "100010", "100010", "011100", "000000", "111111" } },
+     { 'V', new[] { "111111", "000000", "100010", "100010", "100010", "010100", "001000", "000000", "111111" } },
+     { 'W', new[] { "111111", "000000", "100010", "101010", "101010", "101010", "010100", "000000", "111111" } },
+     { 'X', new[] { "111111", "000000", "100010", "010100", "001000", "010100", "100010", "000000", "111111" } },
+     { 'Y', new[] { "111111", "000000", "100010", "010100", "001000", "001000", "001000", "000000", "111111" } },
+     { 'Z', new[] { "111111", "000000", "111110", "000100", "001000", "010000", "111110", "000000", "111111" } },
+     { ' ', new[] { "111111", "000000", "000000", "000000", "000000", "000000", "000000", "000000", "111111" } },
+     { '.', new[] { "111111", "000000", "000000", "000000", "000000", "001000", "000000", "000000", "111111" } },
+     { '!', new[] { "111111", "000000", "001000", "001000", "001000", "000000", "001000", "000000", "111111" } },
+     { '#', new[] { "111111", "000000", "010100", "111110", "010100", "111110", "010100", "000000", "111111" } },
+     { '+', new[] { "111111", "000000", "001000", "001000", "111110", "001000", "001000", "000000", "111111" } },
+     { '-', new[] { "111111", "000000", "000000", "000000", "111110", "000000", "000000", "000000", "111111" } },
+     { '*', new[] { "111111", "000000", "101010", "011100", "111110", "011100", "101010", "000000", "111111" } },
+     { '/', new[] { "111111", "000000", "000010", "000100", "001000", "010000", "100000", "000000", "111111" } },
+     { '0', new[] { "111111", "000000", "011100", "100010", "100010", "100010", "011100", "000000", "111111" } },
+     { '1', new[] { "111111", "000000", "001000", "011000", "001000", "001000", "011100", "000000", "111111" } },
+     { '2', new[] { "111111", "000000", "111100", "000010", "111100", "100000", "111110", "000000", "111111" } },
+     { '3', new[] { "111111", "000000", "111110", "000010", "011100", "000010", "111110", "000000", "111111" } },
+     { '4', new[] { "111111", "000000", "100010", "100010", "111110", "000010", "000010", "000000", "111111" } },
+     { '5', new[] { "111111", "000000", "111110", "100000", "111110", "000010", "111110", "000000", "111111" } },
+     { '6', new[] { "111111", "000000", "111110", "100000", "111110", "100010", "111110", "000000", "111111" } },
+     { '7', new[] { "111111", "000000", "111110", "000010", "000100", "001000", "010000", "000000", "111111" } },
+     { '8', new[] { "111111", "000000", "111110", "100010", "111110", "100010", "111110", "000000", "111111" } },
+     { '9', new[] { "111111", "000000", "111110", "100010", "111110", "000010", "111110", "000000", "111111" } }
     };
 
-    // Read-only access to the signatures map
-    public override IReadOnlyDictionary<char, int[]> SignaturesMap => _signaturesMap;
+    public IReadOnlyDictionary<char, string[]> SignaturesMap => _signaturesMap;
 
     // Singleton instance of the Basic character dictionary
-    public static readonly Basic Instance = new();
+    internal static readonly Basic Instance = new();
 
-    // Private constructor to enforce singleton pattern
     private Basic() { }
-
-    // Render the text matrix signatures to the console
-    public override void Draw(int[,] textMatrixSignatures, char[] letters, bool? isInvertedSign = false)
-    {
-      bool inverted = isInvertedSign ?? false;
-      // Render the text in the console
-      Console.WriteLine();
-      Console.Write("██");
-      Console.WriteLine(new string('█', letters.Length * 10 + (letters.Length - 1) * 2 + 6));
-      Console.WriteLine("██" + new string(inverted ? '█' : ' ', letters.Length * 10 + (letters.Length - 1) * 2 + 4) + "██");
-      // Render each of the 5 lines
-      for (int line = 0; line < 5; line++)
-      {
-        Console.Write(inverted ? "████" : "██  ");
-        // Render each character in the line
-        for (int decimalElement = 0; decimalElement < letters.Length; decimalElement++)
-        {
-          // Get the decimal value for the current character line and convert it to binary string (padded to 5 bits) 
-          int dec = textMatrixSignatures[line, decimalElement];
-          string binary = Convert.ToString(dec, 2).PadLeft(5, '0');
-
-          // Render each bit in the binary string
-          foreach (char bit in binary)
-          {
-            // Render a filled pixel for '1' and an empty pixel for '0'
-            if (bit == '1')
-            {
-              Console.Write(inverted ? "  " : "██");
-            }
-            else
-            {
-              Console.Write(inverted ? "██" : "  ");
-            }
-          }
-          Console.Write(inverted ? "██" : "  ");
-        }
-        Console.Write("██");
-        Console.WriteLine();
-      }
-      Console.WriteLine("██" + new string(inverted ? '█' : ' ', letters.Length * 10 + (letters.Length - 1) * 2 + 4) + "██");
-      Console.Write("██");
-      Console.WriteLine(new string('█', letters.Length * 10 + (letters.Length - 1) * 2 + 6));
-    }
   }
 }

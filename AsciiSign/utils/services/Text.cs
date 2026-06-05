@@ -1,12 +1,11 @@
-using AsciiSign.utils.characterDictionaries;
+using AsciiSign.interfaces;
 
 namespace AsciiSign.utils.services
 {
   /// <summary>
   /// Provides methods for processing text related to ASCII art rendering.
   /// </summary>
-  /// <typeparam name="T">The type of the signatures (string, int).</typeparam>
-  public static class Text<T>
+  internal static class Text
   {
     /// <summary>
     /// Retrieves the signatures for each character in the given array from the character map.
@@ -20,9 +19,9 @@ namespace AsciiSign.utils.services
     /// <returns>
     /// A dictionary mapping each character to its corresponding array of signatures.
     /// </returns>
-    public static Dictionary<char, T[]> GetSignatures(char[] letters, CharacterDictionary<T> characterMap)
+    internal static Dictionary<char, string[]> GetSignatures(char[] letters, ICharacterDictionary characterMap)
     {
-      var textSignatures = new Dictionary<char, T[]>();
+      var textSignatures = new Dictionary<char, string[]>();
 
       // Populate the dictionary with signatures for each unique character
       for (int i = 0; i < letters.Length; i++)
@@ -45,13 +44,21 @@ namespace AsciiSign.utils.services
     /// <param name="characterMap">
     /// The character dictionary mapping characters to their signatures.
     /// </param>
+    /// <exception cref="KeyNotFoundException">
+    /// Thrown when the specified character is not found in the character map.
+    /// </exception>
     /// <returns>
     /// An array of signatures corresponding to the given character.
     /// </returns>
-    private static T[] Signature(char letter, CharacterDictionary<T> characterMap)
+    private static string[] Signature(char letter, ICharacterDictionary characterMap)
     {
       // Find and return the signature array for the given character
       var charSignature = characterMap.SignaturesMap.FirstOrDefault(kv => kv.Key == letter);
+
+      if (charSignature.Value == null)
+      {
+        throw new KeyNotFoundException($"The '{letter}' character is not available in the {characterMap.GetType().Name} font character map yet.");
+      }
 
       return charSignature.Value;
     }

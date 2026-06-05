@@ -1,15 +1,12 @@
+using AsciiSign.interfaces;
+
 namespace AsciiSign.utils.characterDictionaries
 {
   /// <summary>
-  /// A Turing character dictionary mapping characters to their ASCII art signatures using Turing machine tape representation.
+  /// Represents a character dictionary for the Turing font style, mapping characters to their corresponding ASCII art signatures.
   /// </summary>
-  /// <remarks>
-  /// This class provides a mapping of characters to their Turing machine tape ASCII art signatures.
-  /// It inherits from CharacterDictionary with string as the type for matrix signatures.
-  /// </remarks>
-  public class Turing : CharacterDictionary<string>
+  internal class Turing : ICharacterDictionary
   {
-    // A dictionary mapping characters to their Turing machine tape ASCII art signatures.
     protected readonly Dictionary<char, string[]> _signaturesMap = new()
     {
       { 'A', new[] { "111f", "1d1c", "ab1c", "111c", "1d1c" , "abab" } },
@@ -39,87 +36,13 @@ namespace AsciiSign.utils.characterDictionaries
       { 'Y', new[] { "1f1f", "111c", "a1db", "01c0", "01c0", "0ab0" } },
       { 'Z', new[] { "111f", "ae1c", "01gb", "1gb0", "111f", "aeeb" } },
       { ' ', new[] { "00", "00", "00", "00", "00", "00" } },
-      { '@', new[] { "" } },
     };
 
-    // Read-only access to the signatures map
-    public override IReadOnlyDictionary<char, string[]> SignaturesMap => _signaturesMap;
+    public IReadOnlyDictionary<char, string[]> SignaturesMap => _signaturesMap;
 
     // Singleton instance of the Turing character dictionary
-    public static readonly Turing Instance = new();
+    internal static readonly Turing Instance = new();
 
-    // Private constructor to prevent external instantiation
     private Turing() { }
-
-    // Method to draw the ASCII art representation of the text matrix signatures
-    public override void Draw(string[,] textMatrixSignatures, char[] letters, bool? isInvertedSign = false)
-    {
-      // Render the text in the console
-      Console.WriteLine();
-
-      // Render each of the 6 lines
-      for (int line = 0; line < 6; line++)
-      {
-        Console.Write(" ");
-        // Render each character in the line
-        for (int decimalElement = 0; decimalElement < letters.Length; decimalElement++)
-        {
-          // Get the decimal value for the current character line
-          string hex = textMatrixSignatures[line, decimalElement];
-
-          // Render each bit in the hexadecimal string
-          foreach (char bit in hex)
-          {
-            // Render a filled pixel for '1' and an empty pixel for '0'
-            if (bit == '1')
-            {
-              Console.Write("██");
-            }
-            else if (bit == 'a')
-            {
-              Console.Write("└─");
-            }
-            else if (bit == 'b')
-            {
-              Console.Write("┘ ");
-            }
-            else if (bit == 'c')
-            {
-              Console.Write("│ ");
-            }
-            else if (bit == 'd')
-            {
-              Console.Write("┌─");
-            }
-            else if (bit == 'e')
-            {
-              Console.Write("──");
-            }
-            else if (bit == 'f')
-            {
-              Console.Write("┐ ");
-            }
-            else if (bit == 'g')
-            {
-              Console.Write("┼─");
-            }
-            else if (bit == 'h')
-            {
-              Console.Write("─┘");
-            }
-            else if (bit == 'i')
-            {
-              Console.Write("├─");
-            }
-            else
-            {
-              Console.Write("  ");
-            }
-          }
-        }
-        Console.WriteLine();
-      }
-      Console.WriteLine();
-    }
   }
 }
