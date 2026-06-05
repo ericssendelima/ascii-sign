@@ -14,7 +14,7 @@
 
 		<Authors>ericssendelima</Authors>
 
-		<Description>A simple and fun .NET library for rendering text in ASCII art format in the console.</Description>
+		<Description>A simple and fun .NET library for rendering text in ASCII art format anywhere.</Description>
 
 		<RepositoryUrl>https://github.com/ericssendelima/ascii-sign</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
