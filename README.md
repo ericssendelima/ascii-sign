@@ -152,7 +152,7 @@ If `AsciiSign` added a little sparkle to your application and you felt happy usi
 
 **Friendly note:** The platform suggests some values, but you have complete freedom to enter any amount you wish in the field next to it, starting from $1. Any coffee, is a huge gesture and makes me incredibly grateful!
 
-[![Buy Me A Coffee](https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/assets/bmac-button.webp)](https://www.buymeacoffee.com/ericssendelima)
+[![Buy Me A Coffee](https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/examples/screenshots/bmac-button.webp)](https://www.buymeacoffee.com/ericssendelima)
 
 
 ## 📜 Credits & License
