@@ -1,0 +1,28 @@
+﻿.ascii-canvas {
+    background: #111;
+    padding: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 20px 0 0 30px;
+}
+
+.ascii-row {
+    display: flex;
+    gap: calc(var(--gap) * 1px);
+    line-height: 0;
+    height: calc(var(--pxh) * 1px);
+}
+
+.px {
+    width: calc(var(--pxw) * 1px);
+    height: calc(var(--pxh) * 1px);
+    display: inline-block;
+}
+
+    .px.on {
+        background: #00ff66;
+    }
+
+    .px.off {
+        background: transparent;
+    }

@@ -1,0 +1,56 @@
+﻿@page "/"
+@using AsciiSign
+
+<h3>Ascii Sign</h3>
+
+@if (Pixels is null)
+{
+    <p>Gerando...</p>
+}
+else
+{
+    <div class="ascii-canvas"
+         style="--pxh:@PixelHeightPx; --pxw:@PixelWidthPx; --gap:@PixelGapPx;">
+        @for (int r = 0; r < Pixels.GetLength(0); r++)
+        {
+            <div class="ascii-row">
+                @for (int c = 0; c < Pixels.GetLength(1); c++)
+                {
+                    <span class="px @(Pixels[r, c] ? "on" : "off")"></span>
+                }
+            </div>
+        }
+    </div>
+}
+
+@code {
+    private const string Text = "asciisign-web";
+
+    private int PixelHeightPx = 12;
+    private int PixelWidthPx = 12; 
+    private int PixelGapPx = 0;
+
+    private bool[,]? Pixels;
+
+    protected override void OnInitialized()
+    {
+        var matrix = Sign.GetAsciiArtMatrix(Text, FontType.TRUE_TYPE);
+
+        var rows = matrix.GetLength(0);
+        var cols = matrix.GetLength(1);
+
+        var px = new bool[rows, cols];
+
+        for (int r = 0; r < rows; r++)
+        {
+            for (int c = 0; c < cols; c++)
+            {
+                var cell = matrix[r, c] ?? string.Empty;
+
+                px[r, c] = cell.Contains('█');
+            }
+        }
+
+        Pixels = px;
+    }
+}
