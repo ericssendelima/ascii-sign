@@ -84,7 +84,7 @@ Character support varies by font.
   dotnet run
   ```
 
-- For the full reference list, see: **[`AsciiSign/docs/characters.md`](./docs/characters.md)**.
+- For the full reference list, see: **[`AsciiSign/docs/characters.md`](./AsciiSign/docs/characters.md)**.
 
 
 ## 🖥️ Console Notes (Window Size & Text Length)
