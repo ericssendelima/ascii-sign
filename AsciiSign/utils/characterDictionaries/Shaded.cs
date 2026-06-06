@@ -9,7 +9,7 @@ namespace AsciiSign.utils.characterDictionaries
   {
     protected readonly Dictionary<char, string[]> _signaturesMap = new()
     {
-      { 'A', new[] { "0111f0", "1dee1f", "11111c", "1dee1c", "1c001c" , "ab00ab" } },
+      { 'A', new[] { "0111f0", "1gee1f", "11111c", "1dee1c", "1c001c" , "ab00ab" } },
       { 'B', new[] { "1111f0", "1dee1f", "1111gb", "1dee1f", "1111gb" , "aeeeb0" } },
       { 'C', new[] { "0111f0", "1gee1f", "1c00ab", "1c001f", "a111gb" , "0aeeb0" } },
       { 'D', new[] { "1111f0", "1dee1f", "1c001c", "1c001c", "1111gb" , "aeeeb0" } },
@@ -35,9 +35,9 @@ namespace AsciiSign.utils.characterDictionaries
       { 'W', new[] { "1f001f", "1c1f1c", "1c1c1c", "1c1c1c", "a1g1gb" , "0abab0" }},
       { 'Y', new[] { "1f001f", "a1f1gb", "0a1gb0", "001c00", "001c00" , "00ab00" }},
       { 'Z', new[] { "11111f", "aee1db", "001gb0", "01gb00", "11111f" , "aeeeeb" }},
-      { ' ', new[] { "000", "000", "000", "000", "000", "000" , "000" }},
+      { ' ', new[] { "000000", "000000", "000000", "000000", "000000", "000000" , "000000" }},
       { '.', new[] { "000000", "000000", "000000", "000000", "1f0000", "ab0000" }},
-      { '!', new[] { "1f00", "1c00", "1c00", "ab00", "1f00", "ab00" }},
+      { '!', new[] { "001f00", "001c00", "001c00", "00ab00", "001f00", "00ab00" }},
       { '#', new[] { "01f1f0", "11111f", "a1d1db", "11111f", "a1d1db", "0abab0" } },
       { '+', new[] { "001f00",  "001c00", "11111f", "ae1deb", "001c00", "00ab00" }},
       { '-', new[] { "000000", "000000", "11111f", "aeeeeb", "000000", "000000" }},

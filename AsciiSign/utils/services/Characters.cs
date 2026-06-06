@@ -20,27 +20,33 @@ namespace AsciiSign.utils.services
     /// <param name="consoleDrawing">
     /// Indicates whether the ASCII art is intended for console drawing, which may affect character processing.
     /// </param>
+    /// <param name="downscale">
+    /// Indicates whether the ASCII art is intended to be scaled down.
+    /// </param>
     /// <returns>
     /// An array of uppercase characters representing the input text.
     /// </returns>
     /// <exception cref="ArgumentException">
     /// Thrown when the input text is null, empty, or exceeds the allowed length for the specified font type.
     /// </exception>
-    internal static char[] GetLettersOfInputText(string text, FontType fontType, bool consoleDrawing)
+    internal static char[] GetLettersOfInputText(string text, FontType fontType, bool consoleDrawing, bool downscale)
     {
       if (string.IsNullOrEmpty(text)) throw new ArgumentException("Text cannot be null or empty.", nameof(text));
 
-      if (consoleDrawing && fontType != FontType.TURING && text.Length > 12)
+      if (!downscale && consoleDrawing)
       {
-        throw new ArgumentException($"Text length cannot be greater than 12 characters for {fontType} font. Actual length: {text.Length}");
-      }
-      else if (consoleDrawing && fontType == FontType.TRUE_TYPE && text.Length > 9)
-      {
-        throw new ArgumentException($"Text length cannot be greater than 9 characters for {fontType} font. Actual length: {text.Length}");
-      }
-      else if (consoleDrawing && fontType == FontType.TURING && text.Length > 19)
-      {
-        throw new ArgumentException($"Text length cannot be greater than 19 characters for {fontType} font. Actual length: {text.Length}");
+        if (fontType != FontType.TURING && text.Length > 12)
+        {
+          throw new ArgumentException($"Text length cannot be greater than 12 characters for {fontType} font. Actual length: {text.Length}");
+        }
+        else if (fontType == FontType.TRUE_TYPE && text.Length > 9)
+        {
+          throw new ArgumentException($"Text length cannot be greater than 9 characters for {fontType} font. Actual length: {text.Length}");
+        }
+        else if (fontType == FontType.TURING && text.Length > 19)
+        {
+          throw new ArgumentException($"Text length cannot be greater than 19 characters for {fontType} font. Actual length: {text.Length}");
+        }
       }
 
       char[] letters = new char[text.Length];
@@ -63,24 +69,13 @@ namespace AsciiSign.utils.services
       return character switch
       {
         '1' => "██",
-        '2' => "█",
-        '3' => "▓",
-        'a' => "└─",
-        'b' => "┘ ",
-        'c' => "│ ",
-        'd' => "┌─",
-        'e' => "──",
-        'f' => "┐ ",
-        'g' => "┼─",
-        'h' => "─┘",
-        'i' => "├─",
-        'j' => "┤ ",
-        'k' => "┬─",
-        'l' => "┴─",
-        'm' => "┼ ",
-        'n' => "─┬",
-        'o' => "─┴",
-        '+' => "++",
+        'a' => " ▀",
+        'b' => "▀ ",
+        'c' => "█ ",
+        'd' => "█▀",
+        'e' => "▀▀",
+        'f' => "▄ ",
+        'g' => "▄▀",
         _ => "  "
       };
     }

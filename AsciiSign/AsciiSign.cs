@@ -1,5 +1,6 @@
 ﻿using AsciiSign.interfaces;
 using AsciiSign.utils.enums;
+using AsciiSign.utils.extensions;
 using AsciiSign.utils.services;
 
 namespace AsciiSign;
@@ -51,13 +52,19 @@ public static class Sign
   /// </summary>
   /// <param name="text">The text for which to draw ASCII art.</param>
   /// <param name="fontType">The type of font to use.</param>
-  public static void DrawOnConsole(string text, FontType fontType)
+  /// <param name="downscale">A value indicating whether to downscale the ASCII art.</param>
+  public static void DrawOnConsole(string text, FontType fontType, bool downscale = false)
   {
-    MatrixHeight matrixHeight = TextMatrix.GetMatrixHeight(fontType);
+    string[,] matrixTranslated = GetAsciiArtMatrix(text, fontType, consoleDrawing: true, downscale);
 
-    string[,] matrixTranslated = GetAsciiArtMatrix(text, fontType, consoleDrawing: true);
-
-    DrawMatrix(matrixTranslated, (int)matrixHeight);
+    if (downscale == true)
+    {
+      DrawMatrix(matrixTranslated.Downscale());
+    }
+    else
+    {
+      DrawMatrix(matrixTranslated);
+    }
   }
 
 
@@ -67,14 +74,13 @@ public static class Sign
   /// <param name="text">The text for which to generate ASCII art.</param>
   /// <param name="fontType">The type of font to use.</param>
   /// <returns>A matrix of strings representing the ASCII art.</returns>
-  public static string[,] GetAsciiArtMatrix(string text, FontType fontType)
-    => GetAsciiArtMatrix(text, fontType, consoleDrawing: false);
-  private static string[,] GetAsciiArtMatrix(string text, FontType fontType, bool consoleDrawing)
+  public static string[,] GetAsciiArtMatrix(string text, FontType fontType)=> GetAsciiArtMatrix(text, fontType, consoleDrawing: false, downscale: false);
+  private static string[,] GetAsciiArtMatrix(string text, FontType fontType, bool consoleDrawing = false, bool downscale = false)
   {
     ICharacterDictionary characterDictionary = Characters.GetCharacterDictionary(fontType);
     MatrixHeight matrixHeight = TextMatrix.GetMatrixHeight(fontType);
 
-    string[,] matrixTranslated = DataProcessing.FinalMatrixProcessment(text, fontType, characterDictionary, matrixHeight, consoleDrawing);
+    string[,] matrixTranslated = DataProcessing.FinalMatrixProcessment(text, fontType, characterDictionary, matrixHeight, consoleDrawing, downscale);
 
     return matrixTranslated;
   }
@@ -83,14 +89,24 @@ public static class Sign
   /// Draws the ASCII art represented by the provided matrix on the console.
   /// </summary>
   /// <param name="textToDraw">The matrix of strings representing the ASCII art.</param>
-  /// <param name="matrixHeight">The height of the matrix.</param>
-  private static void DrawMatrix(string[,] textToDraw, int matrixHeight)
+  private static void DrawMatrix(string[,] textToDraw)
   {
-    for (int i = 0; i < matrixHeight; i++)
+    for (int i = 0; i < textToDraw.GetLength(0); i++)
     {
       for (int decimalElement = 0; decimalElement < textToDraw.GetLength(1); decimalElement++)
       {
-        Console.Write(textToDraw[i, decimalElement]);
+        string currentPixel = textToDraw[i, decimalElement];
+
+        // if it's NOT a solid block AND it's NOT a white space, it's a shadow!
+        // so, we print it in a darker color (e.g., dark gray(#262626)) to create the shadow effect.
+        if (currentPixel != "██" && currentPixel != "  " && currentPixel.Length > 1)
+        {
+          Console.Write($"\u001b[38;5;235m{currentPixel}\u001b[0m");
+        }
+        else
+        {
+          Console.Write(currentPixel);
+        }
       }
       Console.WriteLine();
     }

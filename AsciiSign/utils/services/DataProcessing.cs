@@ -17,11 +17,12 @@ namespace AsciiSign.utils.services
     /// <param name="characterMap">The character dictionary containing the ASCII art representations.</param>
     /// <param name="matrixHeight">The height of the ASCII art matrix.</param>
     /// <param name="consoleDrawing">Indicates whether the ASCII art is intended for console drawing, which may affect character processing.</param>
+    /// <param name="downscale">Indicates whether the ASCII art should be downscaled, which may affect character processing.</param>
     /// <returns>The generated ASCII art matrix.</returns>
     internal static string[,] FinalMatrixProcessment(string text, FontType fontType, ICharacterDictionary characterMap,
-   MatrixHeight matrixHeight, bool consoleDrawing)
+   MatrixHeight matrixHeight, bool consoleDrawing, bool downscale)
     {
-      char[] letters = Characters.GetLettersOfInputText(text, fontType, consoleDrawing);
+      char[] letters = Characters.GetLettersOfInputText(text, fontType, consoleDrawing, downscale);
 
       string[,] textMatrixSignatures = GetTextMatrixSignatures(characterMap, matrixHeight, letters);
 
