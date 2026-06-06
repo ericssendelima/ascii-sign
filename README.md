@@ -13,6 +13,11 @@
 
 `AsciiSign` is a zero-dependency .NET library designed to generate pixel-matrix ASCII art from plain text. While it shines in the terminal for banners and welcome screens, its newly decoupled architecture allows you to extract raw matrices and render them seamlessly in UI frameworks like **Blazor**, **WPF**, or even export them to **PDFs**.
 
+### 🌟 NEW in v2.2.0: Downscaling & High-Fidelity Rendering! 🌟
+* **Compact Rendering:** You can now generate compact ASCII art using the new optional `downscale: true` parameter. Ideal for constrained environments or when you need a minimalist visual.
+* **Stylized shadows:** The `Turing` and `Shaded` fonts have been redesigned using solid blocks to represent shadows, due to the new ability to reduce the font size by 50% in the console.
+* **Bug Fixes:** Improved error handling and resolved various exceptions that occurred during matrix generation in previous versions.
+
 ### 🌟 NEW in v2.1.0: The `TrueType` Font & UI-Agnostic Engine! 🌟
 * **Beyond the Console:** We entirely refactored the rendering engine! `AsciiSign` is no longer limited to the console. You can now generate the raw ASCII matrix (`string[,]`) using `Sign.GetAsciiArtMatrix("some text", FontType.TRUE_TYPE)` and bind it to any modern interface.
 * **Streamlined API:** The old specific drawing methods are now `[Obsolete]`. Everything is now unified under a single, clean `Sign.DrawOnConsole("some text", FontType.TRUE_TYPE)` method.
@@ -22,7 +27,7 @@
 
 Here is how `AsciiSign` looks across different platforms:
 
-![AsciiSign V2.1.0 Examples](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/examples/screenshots/ascii-sign-v2-1-0.png)
+![AsciiSign V2.2.0 Examples](https://raw.githubusercontent.com/ericssendelima/ascii-sign/refs/heads/main/examples/screenshots/ascii-sign-v2-2-0.png)
 
 *Check out the [`/examples`](./examples) folder in this repository for full implementation details on each platform!*
 
@@ -52,6 +57,9 @@ using AsciiSign;
 Sign.DrawOnConsole("Hello World", FontType.BASIC);
 Sign.DrawOnConsole("Welcome", FontType.TURING);
 
+// Draw in compact size (50% reduction)
+Sign.DrawOnConsole("Hello world in a compact size", FontType.TURING, downscale: true);
+
 // ⚠️ NOTE: Older methods like DrawBasicFont() or DrawTuringFont() are marked as [Obsolete] 
 // and will point you toward using DrawOnConsole() instead. They will be completely removed in v3.0!
 ```
@@ -68,56 +76,78 @@ using AsciiSign;
 // Generate the raw 2D array matrix for custom UI rendering
 string[,] myAsciiArt = Sign.GetAsciiArtMatrix("Hello UI", FontType.SHADED); 
 
-// Now you can bind 'myAsciiArt' to a Blazor Grid, a WPF Canvas, or a PDF Document!
+// Now you can bind 'AsciiSign' to a Blazor Grid, a WPF Canvas, or a PDF Document!
 ```
 
 ---
+
+### 🎨 Rendering Shadows Outside the Console
+
+When using `Sign.GetAsciiArtMatrix(...)`, the library returns a raw matrix. The "Shadow Effect" in `Turing` and `Shaded` fonts depends
+on identifying which characters are meant to be shadows.
+
+**The Logic (Required):** 
+To identify a shadow, simply check if the pixel is neither a solid block (██) nor whitespace (  ):
+
+```csharp
+string pixel = asciiMatrix[row, col];
+
+if (pixel != "██" && pixel != "  ") 
+{
+    // This is a shadow pixel!
+}
+```
+
+
+#### The Implementation (Suggestion):
+How you render this is entirely up to you. You can apply different colors, styles, or even different characters depending on your UI framework (Blazor, WPF, PDF, etc.).
+
+Here is an example of how you might implement this in a custom renderer:
+
+**Pseudo-code:**
+```csharp
+string[,] asciiMatrix = Sign.GetAsciiArtMatrix("Shadow Text", FontType.SHADED);
+
+for (int row = 0; row < asciiMatrix.GetLength(0); row++) 
+{
+    for (int col = 0; col < asciiMatrix.GetLength(1); col++) 
+    {
+        string pixel = asciiMatrix[row, col];
+        
+        if (pixel != "██" && pixel != "  ") 
+        {
+            // Apply the shadow color to its own rendering method (e.g., #262626)
+            RenderText(pixel, color: "#262626");
+        } 
+        else 
+        {
+            // Render as a solid fill
+            RenderText(pixel, color: "#FFFFFF");
+        }
+     }
+}
+
+
+```
+
+This allows you to customize your shadow colors perfectly to match your application's theme!
 
 ## 🔤 Supported Characters (per font)
 
 Character support varies by font.
 
-- To **preview all supported characters rendered in the terminal**, clone this repo and run the Console example:
-  ```bash
-  git clone https://github.com/ericssendelima/ascii-sign.git
-  cd ascii-sign/examples/AsciiSignConsoleApp
-  dotnet run
-  ```
-
-- For the full reference list, see: **[`AsciiSign/docs/characters.md`](./AsciiSign/docs/characters.md)**.
+- For the full reference list, see: **[`AsciiSign/docs/characters.md`](https://github.com/ericssendelima/ascii-sign/blob/main/AsciiSign/docs/characters.md)**.
 
 
-## 🖥️ Console Notes (Window Size & Text Length)
+## 🖥️ Console & Rendering Limits
 
-When using `AsciiSign` in the terminal, the output is affected by **your console window dimensions** and by **the maximum supported text length for each font**.
+- **Console Limitations:**  If your terminal is too small, the output may wrap or clip. Some fonts have character limits.
+Exceeding them will throw an exception to prevent malformed output.
 
-### Console window size matters
-ASCII art is “drawn” using characters that occupy space on the screen.  
-If your console window is **too narrow or too short**, the terminal may wrap lines or clip the output, which can visually “break” the art.
+- **Fix:** Maximize your window, shorten the text, or enable `downscale: true` to shrink the Ascii art by 50%.
 
-**Fix:** simply resize/maximize your console window and run again.
-
-### Each font has a maximum text length
-Some fonts have internal size constraints. If the input text is **too long** for a given font, `AsciiSign` may throw an exception (this is intentional, to prevent malformed output).
-
-**Fix:** reduce the number of characters in the input text, or switch to a different font.
-
-### Want full freedom? Use the matrix API
-For a more flexible and UI-independent experience, prefer:
-
-```csharp
-string[,] matrix = Sign.GetAsciiArtMatrix("your text", FontType.TRUE_TYPE);
-```
-
-With the raw `string[,]` matrix in hand, you can render the art however you want—and control its final size and layout according to your platform limits:
-
-- Console window width/height
-- Browser viewport (Blazor)
-- PDF page size / margins
-- WPF window size
-- Any other UI surface or document format
-
-This approach is recommended for custom layouts, responsive designs, and export scenarios.
+- **Pro Tip (UI Independence):** For custom layouts (Blazor, WPF, PDF, etc.), use the `GetAsciiArtMatrix` API. 
+It gives you full control over rendering, bypassing all terminal-specific constraints.
 
 ## 📸 Examples
 
@@ -154,12 +184,20 @@ If `AsciiSign` added a little sparkle to your application and you felt happy usi
 
 [![Buy Me A Coffee](https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/examples/screenshots/bmac-button.webp)](https://www.buymeacoffee.com/ericssendelima)
 
+## 📝 Changelog
+* **v2.2.0**: 
+    * Added `downscale` support (50% reduction) for all fonts.
+    * Redesigned `Turing` and `Shaded` fonts using solid blocks for better visual consistency.
+    * Resolved multiple internal exceptions and improved error handling during matrix generation.
+* **v2.1.0**: 
+    * UI-agnostic engine and `TrueType` font introduction.
 
 ## 📜 Credits & License
 
 - TrueType Font Inspiration: The TrueType font implementation was heavily inspired by the amazing  [*Yie Ar Redux* font by mazeon](https://mazeon.tumblr.com/post/113879887445/yie-ar-redux-truetype-font-the-original-c64)
 
 This project is licensed under the **MIT License** — see the [LICENSE](./LICENSE) file for details.
+
 
 ---
 

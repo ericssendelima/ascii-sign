@@ -18,6 +18,10 @@ This page documents which characters are currently supported by each `AsciiSign`
   ```csharp
   string[,] matrix = Sign.GetAsciiArtMatrix("your text", FontType.TRUE_TYPE);
   ```
+-- Or add the optional `downscale: true` parameter to fit longer text within the same font:
+  ```csharp
+  string[,] matrix = Sign.DrawOnConsole("your text", FontType.TRUE_TYPE, downscale: true);
+  ```
 
 ---
 

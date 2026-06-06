@@ -10,13 +10,21 @@
 
 		<PackageId>AsciiSign</PackageId>
 
-		<Version>2.1.1</Version>
+		<Version>2.2.0</Version>
 		
-		<PackageReleaseNotes>Fixes minor typos in README and updates project documentation metadata for the v2.1.0 release.</PackageReleaseNotes>
-
 		<Authors>ericssendelima</Authors>
 
 		<Description>A simple and fun .NET library for rendering text in ASCII art format anywhere.</Description>
+
+		<PackageReleaseNotes>
+			v2.2.0:
+			- Added downscale support (50% reduction) for all fonts.
+			- Redesigned Turing and Shaded fonts using solid blocks for better visual consistency.
+			- Resolved multiple internal exceptions and improved error handling during matrix generation.
+			v2.1.0:
+			- UI-agnostic engine 
+			- TrueType font introduction.
+		</PackageReleaseNotes>
 
 		<RepositoryUrl>https://github.com/ericssendelima/ascii-sign</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
