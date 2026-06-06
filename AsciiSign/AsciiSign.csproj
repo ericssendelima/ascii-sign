@@ -10,7 +10,9 @@
 
 		<PackageId>AsciiSign</PackageId>
 
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
+		
+		<PackageReleaseNotes>Fixes minor typos in README and updates project documentation metadata for the v2.1.0 release.</PackageReleaseNotes>
 
 		<Authors>ericssendelima</Authors>
 
@@ -20,7 +22,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageProjectUrl>https://github.com/ericssendelima/ascii-sign</PackageProjectUrl>
 
-		<PackageTags>console;ascii;art;text;drawing;font</PackageTags>
+		<PackageTags>console;wpf;web;pdf;png;anywhere;ascii;text;drawing;font</PackageTags>
 
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 
