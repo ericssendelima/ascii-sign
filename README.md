@@ -185,12 +185,7 @@ If `AsciiSign` added a little sparkle to your application and you felt happy usi
 [![Buy Me A Coffee](https://raw.githubusercontent.com/ericssendelima/ascii-sign/main/examples/screenshots/bmac-button.webp)](https://www.buymeacoffee.com/ericssendelima)
 
 ## 📝 Changelog
-* **v2.2.0**: 
-    * Added `downscale` support (50% reduction) for all fonts.
-    * Redesigned `Turing` and `Shaded` fonts using solid blocks for better visual consistency.
-    * Resolved multiple internal exceptions and improved error handling during matrix generation.
-* **v2.1.0**: 
-    * UI-agnostic engine and `TrueType` font introduction.
+🔗 For the full version history and changelogs, check the Releases page.
 
 ## 📜 Credits & License
 
