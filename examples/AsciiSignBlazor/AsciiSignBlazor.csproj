@@ -8,4 +8,8 @@
 	<ItemGroup>
 		<PackageReference Include="AsciiSign" Version="2.2.1" />
 	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="wwwroot\**" CopyToPublishDirectory="PreserveNewest" />
+	</ItemGroup>
 </Project>

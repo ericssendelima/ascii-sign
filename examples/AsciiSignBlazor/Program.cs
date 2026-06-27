@@ -1,16 +1,10 @@
 using AsciiSignBlazor.Components;
 using Microsoft.AspNetCore.HttpOverrides;
 
-var builder = WebApplication.CreateBuilder(new WebApplicationOptions
-{
-  Args = args,
-  WebRootPath = "wwwroot"
-});
+var builder = WebApplication.CreateBuilder(args);
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
+var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
 builder.WebHost.UseUrls($"http://*:{port}");
-
-builder.Services.AddAntiforgery();
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -23,21 +17,10 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 var app = builder.Build();
 
 app.UsePathBase("/");
-app.UseStaticFiles(new StaticFileOptions
-{
-  RequestPath = ""
-});
 app.UseForwardedHeaders();
 
-if (!app.Environment.IsDevelopment())
-{
-  app.UseExceptionHandler("/Error", createScopeForErrors: true);
-  app.UseHsts();
-}
-
-
-app.UseRouting(); 
-app.UseAntiforgery(); 
+app.UseStaticFiles();
+app.UseAntiforgery();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
