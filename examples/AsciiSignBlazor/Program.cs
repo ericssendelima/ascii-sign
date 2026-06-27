@@ -1,14 +1,16 @@
 using AsciiSignBlazor.Components;
 using Microsoft.AspNetCore.HttpOverrides;
-
-System.IO.Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://*:{port}");
 
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+  builder.Services.AddDataProtection();
+
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -17,17 +19,20 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 
 var app = builder.Build();
 
+app.UsePathBase("/");
+
 app.UseForwardedHeaders();
+
 if (!app.Environment.IsDevelopment())
 {
   app.UseExceptionHandler("/Error", createScopeForErrors: true);
   app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles(); 
+app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();
