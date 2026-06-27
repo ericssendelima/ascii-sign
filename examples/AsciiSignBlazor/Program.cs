@@ -26,6 +26,13 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UsePathBase("/");
+app.UseStaticFiles(); 
+app.UseStaticFiles(new StaticFileOptions
+{
+  RequestPath = "/_framework" 
+});
+
 app.UseStaticFiles();
 app.UseAntiforgery();
 

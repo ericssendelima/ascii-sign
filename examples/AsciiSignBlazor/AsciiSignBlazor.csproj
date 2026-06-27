@@ -1,12 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
-	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<StaticWebAssetsEnabled>true</StaticWebAssetsEnabled>
+	</PropertyGroup>
 
   <ItemGroup>
 	  <PackageReference Include="AsciiSign" Version="2.2.1" />
