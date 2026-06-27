@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://*:{port}");
 
+builder.Services.AddAntiforgery();
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
@@ -26,6 +28,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
+
+app.UseRouting(); 
+app.UseAntiforgery(); 
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
