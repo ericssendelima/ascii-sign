@@ -1,5 +1,18 @@
-﻿body {
+﻿
+:root {
+    --bg-main: #121214;
+    --bg-panel: #202024;
+    --bg-terminal: #0A0A0C;
+    --text-primary: #FFFFFF;
+    --text-muted: #8D8D99;
+    --accent-color: #512BD4;
+    --accent-hover: #4322B0;
+    --terminal-green: #00ff66;
+    --cell-size: 14px;
+}
+
+body {
     background: #484848;
     color: #fff;
-    margin-top: 20px;
+    margin: 0;
 }
