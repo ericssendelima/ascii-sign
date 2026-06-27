@@ -6,8 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
 builder.WebHost.UseUrls($"http://*:{port}");
 
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 builder.Services.Configure<ForwardedHeadersOptions>(options =>
 {
@@ -17,7 +16,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 var app = builder.Build();
 
 app.UseForwardedHeaders();
-
 if (!app.Environment.IsDevelopment())
 {
   app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -25,18 +23,9 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UsePathBase("/");
 app.UseStaticFiles(); 
-app.UseStaticFiles(new StaticFileOptions
-{
-  RequestPath = "/_framework" 
-});
-
-app.UseStaticFiles();
 app.UseAntiforgery();
 
-app.MapRazorComponents<App>()
-    .AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 app.Run();

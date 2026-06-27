@@ -1,14 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
 	<PropertyGroup>
 		<TargetFramework>net10.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<StaticWebAssetsEnabled>true</StaticWebAssetsEnabled>
+		<PublishDir>./</PublishDir>
 	</PropertyGroup>
 
-  <ItemGroup>
-	  <PackageReference Include="AsciiSign" Version="2.2.1" />
-  </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="AsciiSign" Version="2.2.1" />
+	</ItemGroup>
 </Project>
