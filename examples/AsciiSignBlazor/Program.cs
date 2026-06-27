@@ -1,6 +1,8 @@
 using AsciiSignBlazor.Components;
 using Microsoft.AspNetCore.HttpOverrides;
 
+System.IO.Directory.SetCurrentDirectory(AppContext.BaseDirectory);
+
 var builder = WebApplication.CreateBuilder(args);
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
