@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.WebHost.UseStaticWebAssets();
-builder.WebHost.UseContentRoot(AppContext.BaseDirectory);
-
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -21,6 +18,7 @@ var app = builder.Build();
 
 app.UseForwardedHeaders();
 
+// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
   app.UseExceptionHandler("/Error", createScopeForErrors: true);
@@ -28,7 +26,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
-//app.UseHttpsRedirection();
 app.UseAntiforgery();
 app.MapStaticAssets();
 
