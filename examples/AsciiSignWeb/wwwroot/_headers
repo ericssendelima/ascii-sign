@@ -1,0 +1,14 @@
+/_framework/*.js
+  Content-Type: application/javascript
+  Cache-Control: no-cache
+  Content-Encoding: identity
+
+/_framework/*.wasm
+  Content-Type: application/wasm
+  Content-Encoding: identity
+
+/*.js
+  Content-Type: application/javascript
+
+/*.css
+  Content-Type: text/css

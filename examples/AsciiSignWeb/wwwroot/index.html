@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AsciiSignWeb</title>
+    <base href="/" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="AsciiSignWeb.styles.css" rel="stylesheet" />
+
+    <style>
+        .shimmer {
+            background: linear-gradient(90deg, #16161A 25%, #202024 50%, #16161A 75%);
+            background-size: 200% 100%;
+            animation: skeleton-shimmer 1.5s infinite;
+        }
+
+        @keyframes skeleton-shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+        .sk-page {
+            height: 100vh;
+            padding: 0 2rem;
+            margin: 0;
+        }
+
+        .sk-header {
+            height: 70px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #29292E;
+            margin-bottom: 2rem;
+        }
+
+        .sk-box, .sk-terminal {
+            width: 90%;
+            max-width: 900px;
+            margin: 0 auto 1.5rem auto; 
+            border-radius: 8px;
+            display: block; 
+        }
+
+        .sk-box {
+            height: 300px;
+        }
+
+        .sk-terminal {
+            height: 180px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="app">
+        <div class="page-container" style="background-color: #121214;">
+            <div class="sk-page">
+                <header class="sk-header">
+                    <div class="shimmer" style="width: 150px; height: 30px; border-radius: 4px;"></div>
+                    <div class="shimmer" style="width: 100px; height: 30px; border-radius: 4px;"></div>
+                </header>
+
+                <main class="main-content">
+                    <section class="controls-panel sk-box shimmer"></section>
+                    <section class="terminal-container sk-terminal shimmer"></section>
+                </main>
+
+                <footer style="text-align: center; padding: 1.5rem;">
+                    <div class="shimmer" style="width: 120px; height: 15px; margin: auto; border-radius: 2px;"></div>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+        Blazor.start().then(() => {
+            console.log("Blazor carregou com sucesso!");
+        }).catch(err => {
+            console.error("ERRO FATAL NO BOOT DO BLAZOR:", err);
+        });
+    </script>
+</body>
+</html>

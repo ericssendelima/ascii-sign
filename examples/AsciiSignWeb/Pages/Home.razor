@@ -1,0 +1,177 @@
+﻿@page "/"
+@using AsciiSign
+
+<PageTitle>AsciiSign - ASCII Art Generator</PageTitle>
+
+<div class="page-container">
+    <header class="site-header">
+        <div class="logo">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKwAAAB9CAYAAAA/U4hSAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAAEnQAABJ0Ad5mH3gAAAJUSURBVHhe7d0xchNBEEDRNaHMQcg5CDkHJOcg5L6InELkZKFgJHrxfvNelZKNZse/Jpi2Sg+Xy/vvG0S82z+AMxMsKYIlRbCkCJYUwZIiWFIES4pgSREsKYIl5WH6fwmer5/3j96Uy+OX/aO7nXGvJt/vCE5YUgRLimBJESwpgiVFsKQIlhTBkmJwcKuPX/dPfnJ5uu4f/dIp92rw/Y7ghCVFsKQIlhTBkiJYUgRLimBJESwpgiXlvJOuhYnLsm+f9k/ut7Cu1UnQKfdqwer7HcEJS4pgSREsKYIlRbCkCJYUwZIiWFLyg4OVS+yxNW1r61pZ0za5roU1bTes68ycsKQIlhTBkiJYUgRLimBJESwpgiVlfHCw4vnD4/7R3VYuw8cu6Le1S/qVNW3T6zqhI37gwwlLimBJESwpgiVFsKQIlhTBkiJYUgRLyqtMuv610YmSSde6wb164YQlRbCkCJYUwZIiWFIES4pgSREsKeODA5fht1+G/87k14mWnPQHTF44YUkRLCmCJUWwpAiWFMGSIlhSBEuKwcGtDrgMP5PRv98Be+WEJUWwpAiWFMGSIlhSBEuKYEkRLCmCJeW8k66FKcmyk3/t42+N7fm0A/bKCUuKYEkRLCmCJUWwpAiWFMGSIlhS8sFenq5//PB25IPl/yJYUgRLimBJESwpgiVFsKQIlhTBkjL+FZkVk7+MMjnJmlrX5JomTb3fpFv3yglLimBJESwpgiVFsKQIlhTBkiJYUl5lcAD3csKSIlhSBEuKYEkRLCmCJUWwpAiWFMGS8gPkt4fy5djKjwAAAABJRU5ErkJggg==" alt="" width="21" height="15" />
+            AsciiSign
+            <span class="version-badge">V2.2.1 🚀</span>
+        </div>
+        <div class="header-links">
+            <a href="https://github.com/ericssendelima/ascii-sign" target="_blank" class="btn-secondary">GitHub</a>
+            <a href="https://www.nuget.org/packages/AsciiSign" target="_blank" class="btn-secondary">NuGet</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="controls-panel">
+            <div class="input-group">
+                <label for="text-input">Input Text</label>
+                <input id="text-input" type="text"
+                       @bind="InputText"
+                       placeholder="Type something to generate..." />
+            </div>
+
+            <div class="row-controls">
+                <div class="input-group font-select">
+                    <label for="font-select">Font</label>
+                    <select id="font-select" @bind="SelectedFont">
+                        <option value="TRUE_TYPE">True Type █</option>
+                        <option value="BASIC">Basic</option>
+                        <option value="INVERTED_BASIC">Inverted Basic</option>
+                        <option value="SHADED">Shaded</option>
+                        <option value="TURING">Turing</option>
+                    </select>
+                </div>
+
+                <div class="toggle-group">
+                    <label class="switch">
+                        <input type="checkbox" @bind="UseReducedScale" />
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label">Reduced Scale (50%)</span>
+                </div>
+            </div>
+
+            <div class="actions-row">
+                <button type="button" class="btn-generate" @onclick="UpdateArt">
+                    Generate ASCII Art ⚡
+                </button>
+            </div>
+        </section>
+
+        <section class="terminal-container">
+            <div class="terminal-header">
+                <span class="terminal-title">💻 Final Art</span>
+            </div>
+            <div class="terminal-body">
+                @if (AsciiArtMatrix != null)
+                {
+                    int rows = AsciiArtMatrix.GetLength(0);
+                    int cols = AsciiArtMatrix.GetLength(1);
+
+                    <div class="ascii-grid @(displayReducedScale ? "reduced-scale" : "")">
+                        @for (int r = 0; r < rows; r++)
+                        {
+                            <div class="ascii-row">
+                                @for (int c = 0; c < cols; c++)
+                                {
+                                    var token = AsciiArtMatrix[r, c];
+                                    var sanitizedToken = EnsureTwoCharacters(token);
+                                    var cellType = ClassifyCell(sanitizedToken);
+
+                                    <div class="cell-atomic @GetCssClassByType(cellType)">
+                                        <div class="sub-cell @GetSubCellClass(sanitizedToken[0])"></div>
+                                        <div class="sub-cell @GetSubCellClass(sanitizedToken[1])"></div>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+                else if (!string.IsNullOrEmpty(ErrorMessage))
+                {
+                    <div class="error-msg">@ErrorMessage</div>
+                }
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        Made with ☕ by <a href="https://github.com/ericssendelima" target="_blank" class="footer-link">Yalê Ericssen</a>
+    </footer>
+</div>
+
+@code {
+    private string InputText { get; set; } = "Ascii";
+    private string SelectedFont { get; set; } = "SHADED";
+    private bool UseReducedScale { get; set; } = false;
+    private string[,] AsciiArtMatrix;
+    private string ErrorMessage = "";
+    private bool displayReducedScale = false;
+
+    private enum CellType { Empty, Body, Shadow }
+
+    protected override void OnInitialized()
+    {
+        UpdateArt();
+    }
+
+    private void UpdateArt()
+    {
+        displayReducedScale = UseReducedScale;
+        ErrorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(InputText))
+        {
+            AsciiArtMatrix = null;
+            return;
+        }
+
+        try
+        {
+            FontType fontType = Enum.Parse<FontType>(SelectedFont);
+            AsciiArtMatrix = Sign.GetAsciiArtMatrix(InputText, fontType);
+        }
+        catch (Exception ex)
+        {
+            AsciiArtMatrix = null;
+            ErrorMessage = $"Library processing error: {ex.Message}";
+        }
+    }
+
+    private CellType ClassifyCell(string token)
+    {
+        if (token == "  ") return CellType.Empty;
+        if (token == "██") return CellType.Body;
+
+        // Force shadow classification for specific font styles
+        if (SelectedFont == "SHADED" || SelectedFont == "TURING")
+        {
+            return CellType.Shadow;
+        }
+
+        return CellType.Body;
+    }
+
+    private string GetCssClassByType(CellType type)
+    {
+        return type switch
+        {
+            CellType.Body => "cell-body",
+            CellType.Shadow => "cell-shadow",
+            _ => "cell-empty"
+        };
+    }
+
+    private string GetSubCellClass(char c)
+    {
+        return c switch
+        {
+            '█' => "b-full",
+            '▀' => "b-top",
+            '▄' => "b-bottom",
+            _ => "b-empty"
+        };
+    }
+
+    private string EnsureTwoCharacters(string token)
+    {
+        if (string.IsNullOrEmpty(token)) return "  ";
+        if (token.Length == 1) return token + " ";
+        return token;
+    }
+}
